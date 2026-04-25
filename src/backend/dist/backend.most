@@ -1,0 +1,91 @@
+// Version: 1.0.0
+type Data__791452850<K, V> =
+  {var count : Nat__490723111; kvs : [var ?(K, V)]};
+type FoodItem__337809765 =
+  {
+    cuisineType : Text;
+    deliveryTime : Nat;
+    id : Text;
+    imageUrl : Text;
+    isActive : Bool;
+    name : Text;
+    price : Nat;
+    rating : Float;
+    reason : Text;
+    restaurant : Text;
+    swipeCount : Nat;
+    tags : [Text];
+    whyThis : Text
+  };
+type HistoryEntry__891393662 =
+  {
+    feedback : Text;
+    foodItem : FoodItem__337809765;
+    id : Text;
+    savedAt : Int;
+    userId : Text
+  };
+type Internal__8484328<K, V> =
+  {children : [var ?Node__46230540<K, V>]; data : Data__791452850<K, V>};
+type Leaf__809889148<K, V> = {data : Data__791452850<K, V>};
+type Nat__490723111 = Nat__920180692;
+type Nat__920180692 = Nat;
+type Node__46230540<K, V> =
+  {#internal : Internal__8484328<K, V>; #leaf : Leaf__809889148<K, V>};
+type ShareRecord__865423140 =
+  {
+    createdAt : Int;
+    createdBy : Text;
+    foodItem : FoodItem__337809765;
+    shareId : Text
+  };
+type SwipeRecord__179946445 =
+  {direction : Text; foodId : Text; swipedAt : Int; userId : Text};
+type UserPreferences__2937221 =
+  {
+    budget : ?Nat;
+    cuisines : [Text];
+    dietaryType : Text;
+    notificationsEnabled : Bool
+  };
+type User__933515552 =
+  {
+    createdAt : Int;
+    email : Text;
+    id : Text;
+    name : Text;
+    passwordHash : Text;
+    var preferences : UserPreferences__2937221;
+    var token : ?Text
+  };
+actor {
+  stable foodItems :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?FoodItem__337809765]];
+      var elementIndex : Nat__490723111
+    };
+  stable history :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?HistoryEntry__891393662]];
+      var elementIndex : Nat__490723111
+    };
+  stable shares :
+    {
+      var root : Node__46230540<Text, ShareRecord__865423140>;
+      var size : Nat__490723111
+    };
+  stable swipes :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?SwipeRecord__179946445]];
+      var elementIndex : Nat__490723111
+    };
+  stable users :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?User__933515552]];
+      var elementIndex : Nat__490723111
+    }
+};

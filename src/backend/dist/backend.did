@@ -1,0 +1,133 @@
+type UserPublic = 
+ record {
+   createdAt: int;
+   email: text;
+   id: text;
+   name: text;
+   preferences: UserPreferences;
+ };
+type UserPreferences = 
+ record {
+   budget: opt nat;
+   cuisines: vec text;
+   dietaryType: text;
+   notificationsEnabled: bool;
+ };
+type SwipeRecord = 
+ record {
+   direction: text;
+   foodId: text;
+   swipedAt: int;
+   userId: text;
+ };
+type ShareRecord = 
+ record {
+   createdAt: int;
+   createdBy: text;
+   foodItem: FoodItem;
+   shareId: text;
+ };
+type HistoryEntry = 
+ record {
+   feedback: text;
+   foodItem: FoodItem;
+   id: text;
+   savedAt: int;
+   userId: text;
+ };
+type FoodItem = 
+ record {
+   cuisineType: text;
+   deliveryTime: nat;
+   id: text;
+   imageUrl: text;
+   isActive: bool;
+   name: text;
+   price: nat;
+   rating: float64;
+   reason: text;
+   restaurant: text;
+   swipeCount: nat;
+   tags: vec text;
+   whyThis: text;
+ };
+type DecisionResult = 
+ record {
+   picks: vec FoodItem;
+   sessionId: text;
+ };
+type DecisionRequest = 
+ record {
+   budgetOverride: opt nat;
+   cuisinePreference: opt text;
+   mood: opt text;
+ };
+type AuthResponse = 
+ record {
+   token: text;
+   user: UserPublic;
+ };
+service : {
+  addHistory: (token: text, foodId: text, feedback: text) ->
+   (variant {
+      err: text;
+      ok: HistoryEntry;
+    });
+  createShareLink: (token: text, foodId: text) ->
+   (variant {
+      err: text;
+      ok: ShareRecord;
+    });
+  getHistory: (token: text) -> (variant {
+                                  err: text;
+                                  ok: vec HistoryEntry;
+                                });
+  getProfile: (token: text) -> (variant {
+                                  err: text;
+                                  ok: UserPublic;
+                                });
+  getSharedPick: (shareId: text) ->
+   (variant {
+      err: text;
+      ok: ShareRecord;
+    }) query;
+  login: (email: text, password: text) ->
+   (variant {
+      err: text;
+      ok: AuthResponse;
+    });
+  recordSwipe: (token: text, foodId: text, direction: text) ->
+   (variant {
+      err: text;
+      ok: SwipeRecord;
+    });
+  refineDecision: (token: text, sessionId: text, excludeIds: vec text) ->
+   (variant {
+      err: text;
+      ok: DecisionResult;
+    });
+  runDecision: (token: text, req: DecisionRequest) ->
+   (variant {
+      err: text;
+      ok: DecisionResult;
+    });
+  savePick: (token: text, foodId: text) ->
+   (variant {
+      err: text;
+      ok: HistoryEntry;
+    });
+  signup: (name: text, email: text, password: text) ->
+   (variant {
+      err: text;
+      ok: AuthResponse;
+    });
+  undoLastSwipe: (token: text) -> (variant {
+                                     err: text;
+                                     ok: SwipeRecord;
+                                   });
+  updatePreferences: (token: text, prefs: UserPreferences) ->
+   (variant {
+      err: text;
+      ok: UserPublic;
+    });
+}

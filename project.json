@@ -1,0 +1,25 @@
+{
+  "overview": "Tastee is an AI-powered food decision web app that eliminates decision fatigue by presenting users with 3 smart Indian food picks tailored to their budget, mood, and taste preferences — all in seconds.",
+  "features": [
+    "AI-powered decision engine with mood & budget matching",
+    "Swipe-to-like food cards with haptic feedback",
+    "3-step onboarding with cuisine & dietary preferences",
+    "Results page with Best Pick card, share links, and session persistence",
+    "History page with sortable saved picks",
+    "Profile with meal-time browser notifications",
+    "Full WCAG 2.1 AA accessibility",
+    "Smooth 300ms page transitions and animated landing page"
+  ],
+  "category": "food-productivity",
+  "tags": [
+    "food",
+    "decision-engine",
+    "indian-food",
+    "ai",
+    "react",
+    "motoko",
+    "swipe",
+    "personalization"
+  ],
+  "last_updated": "2026-04-25T08:09:20.998Z"
+}
